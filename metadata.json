@@ -1,10 +1,10 @@
 {
-  "name": "puppet-frepple",
+  "name": "ursais-frepple",
   "version": "1.0.0",
   "author": "Open Source Integrators",
-  "summary": "Module to manage FrePPLe",
+  "summary": "This module installs, configures and manages the FrePPLe service.",
   "license": "Apache-2.0",
-  "source": "https://github.com/ursais/puppet-frepple",
+  "source": "https://github.com/ursais/puppet-frepple.git",
   "project_page": "https://github.com/ursais/puppet-frepple",
   "issues_url": "https://github.com/ursais/puppet-frepple/issues",
   "dependencies": [
