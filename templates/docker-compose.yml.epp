@@ -1,0 +1,83 @@
+# This file is managed by Puppet and local changes may be overwritten
+version: "2"
+services:
+  db:
+    image: ursa/postgresql:latest
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=<%= $frepple::pguser %>
+      - POSTGRES_PASSWORD=<%= $frepple::pgpassword %>
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - "postgres-data:/var/lib/postgresql/data"
+
+  app:
+    image: <%= $frepple::registry %>/<%= $frepple::image %>:<%= $frepple::tag %>
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    environment:
+      - FREPPLE_ADMIN_EMAIL=<%= $frepple::admin_email %>
+      - FREPPLE_ADMIN_NAME=<%= $frepple::admin_name %>
+      - FREPPLE_SECRET_KEY=<%= $frepple::secret_key %>
+      - FREPPLE_SECRET_WEBTOKEN_KEY=<%= $frepple::secret_webtoken_key %>
+      - FREPPLE_OPTIONS=<%= $frepple::options %>
+      - FREPPLE_CONN_MAX_AGE=<%= $frepple::conn_max_age %>
+      - FREPPLE_TEST_NAME=<%= $frepple::test_name %>
+      - FREPPLE_LOGDIR=<%= $frepple::logdir %>
+      - FREPPLE_SQL_ROLE=<%= $frepple::sql_role %>
+      - FREPPLE_PORT_DEFAULT=<%= $frepple::port_default %>
+      - FREPPLE_LANGUAGE_CODE=<%= $frepple::language_code %>
+      - FREPPLE_GOOGLE_ANALYTICS=<%= $frepple::google_analytics %>
+      - FREPPLE_TIME_ZONE=<%= $frepple::time_zone %>
+      - FREPPLE_SESSION_COOKIE_AGE=<%= $frepple::session_cookie_age %>
+      - FREPPLE_ATTRIBUTES=<%= $frepple::attributes %>
+      - FREPPLE_MAXMEMORYSIZE=<%= $frepple::maxmemorysize %>
+      - FREPPLE_MAXCPUTIME=<%= $frepple::maxcputime %>
+      - FREPPLE_MAXTOTALLOGFILESIZE=<%= $frepple::maxtotallogfilesize %>
+      - FREPPLE_DEFAULT_USER_GROUP=<%= $frepple::default_user_group %>
+      - FREPPLE_DEFAULT_PAGESIZE=<%= $frepple::default_pagesize %>
+      - FREPPLE_DEFAULT_THEME=<%= $frepple::default_theme %>
+      - FREPPLE_PORT=<%= $frepple::port %>
+      # Apps
+      - FREPPLE_INSTALLED_APPS_CUSTOM='<%= $frepple::installed_apps_custom %>',
+      - FREPPLE_INSTALLED_APPS_FORECASTING=<%= $frepple::installed_apps_forecasting %>
+      - FREPPLE_INSTALLED_APPS_INVENTORY=<%= $frepple::installed_apps_inventory %>
+      - FREPPLE_INSTALLED_APPS_ODOO=<%= $frepple::installed_apps_odoo %>
+      # PostgreSQL
+      - PGDATABASE=<%= $frepple::pgdatabase %>
+      - PGHOST=<%= $frepple::pghost %>
+      - PGUSER=<%= $frepple::pguser %>
+      - PGPASSWORD=<%= $frepple::pgpassword %>
+      # Email
+      - FREPPLE_EMAIL_USE_TLS=<%= $frepple::email_use_tls %>
+      - FREPPLE_DEFAULT_FROM_EMAIL=<%= $frepple::default_from_email %>
+      - FREPPLE_SERVER_EMAIL=<%= $frepple::server_email %>
+      - FREPPLE_EMAIL_HOST_USER=<%= $frepple::email_host_user %>
+      - FREPPLE_EMAIL_HOST_PASSWORD=<%= $frepple::email_host_password %>
+      - FREPPLE_EMAIL_HOST='<%= $frepple::email_host %>'
+      - FREPPLE_EMAIL_PORT=<%= $frepple::email_port %>
+      # Selenium
+      - FREPPLE_SELENIUM_TESTS=<%= $frepple::selenium_tests %>
+      - FREPPLE_SELENIUM_HEADLESS=<%= $frepple::selenium_headless %>
+      # Odoo
+      - FREPPLE_ODOO_PASSWORD_DEFAULT=<%= $frepple::odoo_password_default %>
+      - FREPPLE_ODOO_PASSWORD_SCENARIO1=<%= $frepple::odoo_password_default %>
+      - FREPPLE_ODOO_PASSWORD_SCENARIO2=<%= $frepple::odoo_password_default %>
+      - FREPPLE_ODOO_PASSWORD_SCENARIO3=<%= $frepple::odoo_password_default %>
+      - FREPPLE_CSRF_COOKIE_SAMESITE=<%= $frepple::csrf_cookie_samesite %>
+      - FREPPLE_CSRF_COOKIE_SECURE=<%= $frepple::csrf_cookie_secure %>
+      - FREPPLE_SESSION_COOKIE_SAMESITE=<%= $frepple::session_cookie_samesite %>
+      - FREPPLE_SESSION_COOKIE_SECURE=<%= $frepple::session_cookie_secure %>
+
+<% if ($frepple::email_host == 'mail') { -%>
+  mail:
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
+<% } -%>
+
+volumes:
+  postgres-data:

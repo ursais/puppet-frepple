@@ -1,0 +1,32 @@
+{
+  "name": "puppet-frepple",
+  "version": "1.0.0",
+  "author": "Open Source Integrators",
+  "summary": "Module to manage FrePPLe",
+  "license": "Apache-2.0",
+  "source": "https://github.com/ursais/puppet-frepple",
+  "project_page": "https://github.com/ursais/puppet-frepple",
+  "issues_url": "https://github.com/ursais/puppet-frepple/issues",
+  "dependencies": [
+  
+  ],
+  "data_provider": null,
+  "tags": [
+    "frepple"
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "18.04",
+        "20.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 5.5.8 < 7.0.0"
+    }
+  ]
+}
