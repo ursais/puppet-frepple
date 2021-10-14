@@ -8,11 +8,7 @@
   "project_page": "https://github.com/ursais/puppet-frepple",
   "issues_url": "https://github.com/ursais/puppet-frepple/issues",
   "dependencies": [
-  
-  ],
-  "data_provider": null,
-  "tags": [
-    "frepple"
+
   ],
   "operatingsystem_support": [
     {
@@ -28,5 +24,11 @@
       "name": "puppet",
       "version_requirement": ">= 5.5.8 < 7.0.0"
     }
-  ]
+  ],
+  "tags": [
+    "frepple"
+  ],
+  "pdk-version": "2.2.0",
+  "template-url": "pdk-default#2.2.0",
+  "template-ref": "tags/2.2.0-0-g2381db6"
 }
